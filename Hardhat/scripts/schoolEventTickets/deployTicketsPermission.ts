@@ -2,11 +2,11 @@ import { ethers } from "hardhat";
 
 import * as dotenv from "dotenv";
 dotenv.config();
-const { SCHOOL_GRADES_CONTRACT_ADDRESS } = process.env;
+const { SCHOOL_EVENT_TICKET_CONTRACT_ADDRESS } = process.env;
 
 async function main() {
-  const Contract = await ethers.getContractFactory("TicketPermissionManager");
-  const contract = await Contract.deploy();
+  const Contract = await ethers.getContractFactory("TicketsPermissionManager");
+  const contract = await Contract.deploy(SCHOOL_EVENT_TICKET_CONTRACT_ADDRESS);
   await contract.deployed();
 
   console.log("Contract Tickets Permission Manager deployed to:", contract.address);

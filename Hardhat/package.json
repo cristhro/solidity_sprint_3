@@ -20,6 +20,8 @@
     "school-event-tickets:deploy" : "hardhat run scripts/schoolEventTickets/deploy.ts --network ethereum_sepolia_testnet_as_school",
     "school-event-tickets:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school",
     "school-tickets-permission-manager:deploy" : "hardhat run scripts/schoolEventTickets/deployTicketsPermission.ts --network ethereum_sepolia_testnet_as_school",
+    "school-tickets-permission-manager:verify" : "hardhat verify  --network ethereum_sepolia_testnet_as_school",
+    "school-add-tickets-student:test": "hardhat run scripts/schoolEventTickets/tests/AddTicketsToStudent.ts --network ethereum_sepolia_testnet_as_school",
     "school-tickets-permission-manager:test": "hardhat run scripts/schoolEventTickets/tests/TicketsPermissionManager.js --network ethereum_sepolia_testnet_as_student"
 
 
