@@ -32,4 +32,10 @@ contract SchoolEventTickets is ERC1155, Ownable {
             _mint(recipients[i], EVENT_TICKET, amount, data);
         }
     }
+
+     // Función simplificada para la transferencia de tickets entre participantes
+    function transferTicket(address from, address to, uint256 amount, bytes memory data) public {
+        require(balanceOf(from, EVENT_TICKET) >= amount, "Insufficient ticket balance to transfer.");
+        safeTransferFrom(from, to, EVENT_TICKET, amount, data);
+    }
 }

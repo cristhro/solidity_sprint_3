@@ -5,11 +5,11 @@ dotenv.config();
 const { SCHOOL_GRADES_CONTRACT_ADDRESS } = process.env;
 
 async function main() {
-  const Contract = await ethers.getContractFactory("SchoolEventTickets");
+  const Contract = await ethers.getContractFactory("TicketPermissionManager");
   const contract = await Contract.deploy();
   await contract.deployed();
 
-  console.log("Contract School Event Tickets deployed to:", contract.address);
+  console.log("Contract Tickets Permission Manager deployed to:", contract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
