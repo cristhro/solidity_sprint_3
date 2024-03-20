@@ -11,7 +11,7 @@
     "school-token:test3": "hardhat run scripts/schoolToken/test3_director_my_balance.ts  --network ethereum_sepolia_testnet_as_director  ",
     "school-certificate:deploy": "hardhat run scripts/schoolCertificate/deploy.ts --network ethereum_sepolia_testnet_as_director  ",
     "school-certificate:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_director ",
-    "school-certificate:test1": "hardhat run scripts/schoolCertificate/test1_student_request_certificate.ts --network ethereum_sepolia_testnet_as_student",
+    "school-certificate:test1": "hardhat run scripts/schoolCertificateNFT/test1_student_request_certificate.ts --network ethereum_sepolia_testnet_as_student",
     "school-certificate:test2": "hardhat run scripts/schoolCertificate/test2_student_allow_certificate.ts --network ethereum_sepolia_testnet_as_student",
     "school-certificate:test3": "hardhat run scripts/schoolCertificate/test3_student_view_certificate.ts --network ethereum_sepolia_testnet_as_student",
     "school-certificate:test4": "hardhat run scripts/schoolCertificate/test4_director_grant_certificate.ts --network ethereum_sepolia_testnet_as_director",
@@ -22,7 +22,14 @@
     "school-tickets-permission-manager:deploy" : "hardhat run scripts/schoolEventTickets/deployTicketsPermission.ts --network ethereum_sepolia_testnet_as_school",
     "school-tickets-permission-manager:verify" : "hardhat verify  --network ethereum_sepolia_testnet_as_school",
     "school-add-tickets-student:test": "hardhat run scripts/schoolEventTickets/tests/AddTicketsToStudent.ts --network ethereum_sepolia_testnet_as_school",
-    "school-tickets-permission-manager:test": "hardhat run scripts/schoolEventTickets/tests/TicketsPermissionManager.js --network ethereum_sepolia_testnet_as_student"
+    "school-tickets-permission-manager:test": "hardhat run scripts/schoolEventTickets/tests/TicketsPermissionManager.js --network ethereum_sepolia_testnet_as_student",
+
+    "school-certificate-nft:deploy" : "hardhat run scripts/schoolCertificateNFT/deploy.ts --network ethereum_sepolia_testnet_as_school",
+    "school-certificate-nft:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school",
+
+    "school-request-certificate:deploy" : "hardhat run scripts/schoolRequestCertificate/deploy.ts --network ethereum_sepolia_testnet_as_school",
+    "school-request-certificate:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school"
+
 
 
   },
