@@ -5,14 +5,16 @@ Sprint 3 - Programación de tokens no fungibles (estándares ERC-720 y ERC-1155)
 - Cristhian Rodriguez Gomez
 - Jesus Rosas Rosales
 
-## Intruducción
-En esta practica, usaremos un nuevo contrato SchoolToken (que implementa el Token ERC-20) para la gestion de tokens que se usara en el contrato SchoolCertificate, 
-ampliaremos la funcionalidad del contrato SchoolCertificate del sprint1 añadiendole la posibilidad de pagar con tokens (SchoolToken).
+## Introducción
+En este sprint, usaremos dos nuevos contratos, SchoolCertificateNFT  (que implementa ERC-721) para la gestion de tokens unicos, 
+y SchoolEventTickets  (que implementa ERC-1155) para la gestión de ticket (entradas) en los eventos academicos.
 
-### SchoolToken
-- La escuela podra otorgar estos tokens a los estudiantes (minando)
-- El estudiante podra consultar su balance
-### SchoolCertificate
+### SchoolCertificateNFT
+- La escuela podra minar los certificado ntf (mintCertificate)
+- La escuela podra quemar los certificado ntf (burn)
+- La escuela podra invalidar un certificado ntf (isRevoked)
+
+### SchoolEventTickets
 - El estudiante  podra Solicitar certificado (dando permiso para realizar tranferencias de los fondos al director una vez se apruebe el certificado)
 - El director firmara el certificado, acto seguido se hace la transferencia de la cuenta del estudiante a la cuenta del director
 
@@ -55,14 +57,14 @@ Resultado: dirección del contrato School token
 ```sh
   SCHOOL_TOKEN_CONTRACT_ADDRESS=0x5Ae5CdF4b34a063351dDFe5A96ce05FaA652CB97
 ```
-4. Hacer deploy de school-certificate:deploy (require la variable de entorno DIRECTOR_ADDRESS y SCHOOL_TOKEN_CONTRACT_ADDRESS  ya que lo usa en el constructor del contrato)
+4. Hacer deploy de school-certificate-nft:deploy 
 ```sh
-   npm run school-certificate:deploy
+   npm run school-certificate-nft:deploy
   -> 0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff
 ```
-5. Verificar el contrato School Certificate
+5. Verificar el contrato School Certificate NFT
 ```sh
-   npm run school-certificate:verify 0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff "0x925687E5C08B9653E57672386fe74c5902016042" "0x5Ae5CdF4b34a063351dDFe5A96ce05FaA652CB97"
+   npm run school-certificate-nft:verify TODO: añadri 0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff
 ```
 - Resultado: 
     - https://sepolia.etherscan.io/address/0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff#code
@@ -73,49 +75,7 @@ Resultado: dirección del contrato School token
 ```
 
  
-## Descripción de los casos de uso y los tests aplicados
-
-
-  ### Agregar SchoolTokens al estudiante (Para poder pagar el certificado): 
-
-  La escuela le otorga 100 tokens (SchoolTokens) al estudiante
-
-  - Requisitos: Configurar la variable de entorno SCHOOL_TOKEN_CONTRACT_ADDRESS, STUDENT_ADDRESS
-  ```sh
-      npm run school-token:test1
-      > hardhat run scripts/schoolToken/test1_school_add_tokens_to_student.ts  --network ethereum_sepolia_testnet_as_school
-   ```
-  - Resultado: 
-    - https://sepolia.etherscan.io/tx/0x4e12563e6861f64ed295404a518999b90556881d4cf01b23b7cc918508ce6524
-
-
-  ### Balance del estudiante: 
-
-  Se muestra el balance actual del estudiante.
-  Con la cuenta de estudiante invocamos al contrato (SchoolToken) para obtener el balance
-
-  - Requisitos: Configurar la variable de entorno SCHOOL_TOKEN_CONTRACT_ADDRESS
-  ```sh
-      npm run school-token:test2
-      > hardhat run scripts/schoolToken/test2_student_my_balance.ts  --network ethereum_sepolia_testnet_as_student
-   ```
-  - Resultado: 
-    -  tx: BigNumber { value: "100" }
-
-
-  ### Balance del estudiante: 
-
-  Se muestra el balance actual del director.
-  Con la cuenta de director invocamos al contrato (SchoolToken) para obtener el balance
-
-  - Requisitos: Configurar la variable de entorno SCHOOL_TOKEN_CONTRACT_ADDRESS
-  ```sh
-      npm run school-token:test3
-      hardhat run scripts/schoolToken/test3_director_my_balance.ts  --network ethereum_sepolia_testnet_as_director
-   ```
-  - Resultado: 
-    -  tx: BigNumber { value: "0" }
-
+## Descripción de los nuevos casos de uso y los tests aplicados
   
  ### Solicitar certificado: 
   El estudiante solicita un certificado al contrato SchoolCertificate. [school-certificate:test1]
@@ -142,8 +102,6 @@ Resultado: dirección del contrato School token
   
  ### Autorizar certificado: 
  El estudiante autoriza al director para que se realice el cargo de 100 Tokens (SchoolTokens) para obtener su certificado una vez aprobado [school-certificate:test2].
- 
-  
    - Requisitos: Tener configurado la variable de entorno SCHOOL_CERTIFICATE_CONTRACT_ADDRESS en .env
    
      ```sh
@@ -163,7 +121,6 @@ Resultado: dirección del contrato School token
           ]
       ```
 - Resultado: https://sepolia.etherscan.io/tx/0x77be5c9b57e7e91ebe6b744a2bddbec941d8dbdb8860bcc6d5aee909cbecba37
-
 
 
 ### Ver solicitud: 
@@ -186,8 +143,8 @@ Resultado: dirección del contrato School token
           ]
     ```
   ### Firmar certificado: 
-  #### El director firmara el certificado, hará la transferencia de la cuenta del estudiante a la cuenta del director
-    
+  #### El director firmara el certificado, ademas de la transferencia de la cuenta del estudiante a la cuenta del director
+  - Al firmar el certificado se generará un certificado ntf (STUCERT) para el estudiante. (Este certificado nft será unico y no podra ser transferido)
   - Requisitos: Tener configurado las variables de entorno SCHOOL_CERTIFICATE_CONTRACT_ADDRESS y STUDENT_ADDRESS en .env
     
   ```sh
