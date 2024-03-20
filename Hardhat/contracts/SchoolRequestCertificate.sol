@@ -2,19 +2,20 @@ pragma solidity ^0.8.0;
 
 import "./SchoolToken.sol";
 
-contract SchoolCertificate {
+contract SchoolRequestCertificate {
 
   // Estructura para almacenar la información de un certificado
-  struct CertificateInfo {
+  struct RequestInfo {
     string studentName;
     string degree;
     uint year;
     bool allowed;
     bool granted;
+    uint tokenCertificate; 
   }
 
   // Mapping para almacenar los certificados de los estudiantes
-  mapping(address => CertificateInfo) public certificates;
+  mapping(address => RequestInfo) public certificates;
 
   // Precio del certificado en tokens
   uint public certificatePrice = 100;
@@ -34,7 +35,7 @@ contract SchoolCertificate {
   // Función para que un estudiante solicite un certificado
   function requestCertificate(string memory _studentName, string memory _degree, uint _year) public {
     // Almacena la solicitud en el mapping
-    certificates[msg.sender] = CertificateInfo(_studentName, _degree, _year, false, false);
+    certificates[msg.sender] = RequestInfo(_studentName, _degree, _year, false, false);
   }
 
   // Función para que el estudiante autorice el pago de un certificado al director de la escuela
@@ -63,7 +64,7 @@ contract SchoolCertificate {
   }
 
   // Función para que un estudiante vea su certificado
-  function viewCertificate() public view returns (CertificateInfo memory) {
+  function viewCertificate() public view returns (RequestInfo memory) {
     return certificates[msg.sender];
   }
 
