@@ -2,6 +2,10 @@ pragma solidity ^0.8.0;
 
 import "./SchoolToken.sol";
 
+
+import "./ISchoolCertificateNFT.sol";
+
+
 contract SchoolRequestCertificate {
 
   // Estructura para almacenar la información de un certificado
@@ -13,6 +17,60 @@ contract SchoolRequestCertificate {
     bool granted;
     uint tokenCertificate; 
   }
+
+
+  // Instancia del contrato SchoolCertificateNFT
+  ISchoolCertificateNFT iSchoolCertificateNFT;
+
+   constructor(address _schoolCertificatesNFTAddress) {
+        iSchoolCertificateNFT = ISchoolCertificateNFT(_schoolCertificatesNFTAddress);
+    }
+
+    function createCertificate(address _to, string memory _tokenURI)  internal
+        returns (uint256)  {
+          uint idCertificate = schoolCertificateNFT.mintCertificate(_to, _tokenURI);
+        return idCertificate;
+    }
+
+    function availableTransfer(bool _transfersEnabled) public {
+      schoolCertificateNFT.setTransfersEnabled(_transfersEnabled);
+    }
+
+    function burnCertificate(uint256 tokenId)  public {
+      schoolCertificateNFT.burn(tokenId);
+    }
+
+    function revokeCertificate(uint256 tokenId) public {
+      schoolCertificateNFT.revokeCertificate(tokenId);
+    }
+
+    function isRevoked(uint256 tokenId) public returns (bool) {
+      bool isRevoked = schoolCertificateNFT.isRevoked(tokenId);
+      return isRevoked;
+    }
+
+
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Mapping para almacenar los certificados de los estudiantes
   mapping(address => RequestInfo) public certificates;
@@ -61,6 +119,13 @@ contract SchoolRequestCertificate {
 
 
     schoolToken.transferFrom( _student, director, 100);
+
+
+    createCertificate(_student, "http://linkTokensCertificate"); 
+
+
+
+
   }
 
   // Función para que un estudiante vea su certificado

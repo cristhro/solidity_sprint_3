@@ -3,7 +3,17 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SchoolCertificateNFT is ERC721URIStorage, Ownable {
+interface ISchoolCertificateNFT {
+    function mintCertificate(address to, string calldata tokenURI) external returns (uint256);
+    function setTransfersEnabled(bool _transfersEnabled) external;
+    function burn(uint256 tokenId) external;
+    function revokeCertificate(uint256 tokenId) external;
+    function isRevoked(uint256 tokenId) external returns (bool);
+}
+
+
+
+contract SchoolCertificateNFT is ISchoolCertificateNFT, ERC721URIStorage, Ownable {
 
 
     // Variable para llevar la cuenta de los tokenIds
@@ -16,18 +26,16 @@ contract SchoolCertificateNFT is ERC721URIStorage, Ownable {
     bool public transfersEnabled = false;
 
 
-   // Variable para llevar la cuenta de los tokenIds
-    uint256 private _currentTokenId = 0;
-    constructor() ERC721("StudentCertificate", "STUCERT") {}
+    constructor() ERC721("StudentCertificate", "STUCERT") {} 
 
 
-  function mintCertificate(address _to, string memory _tokenURI)  public
+    function mintCertificate(address _to, string memory _tokenURI)  public
         returns (uint256) onlyOwner {
         uint256 newTokenId = _currentTokenId + 1;
         _currentTokenId = newTokenId;
 
         _safeMint(_to, newTokenId);
-        _setTokenURI(newTokenId, _tokenURI);
+        _setTokenURI(newTokenId, _tokenURI + "/" + newTokenId);
 
         // Emitir un evento podría ser útil para auditar y rastrear la emisión de certificados
         emit CertificateMinted(_to, newTokenId, _tokenURI);
