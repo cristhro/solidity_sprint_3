@@ -26,7 +26,8 @@
     "school-certificate-nft:deploy" : "hardhat run scripts/schoolCertificateNFT/deploy.ts --network ethereum_sepolia_testnet_as_school",
     "school-certificate-nft:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school",
     "school-request-certificate:deploy" : "hardhat run scripts/schoolRequestCertificate/deploy.ts --network ethereum_sepolia_testnet_as_school",
-    "school-request-certificate:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school"
+    "school-request-certificate:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school",
+    "school-request-certificate:test1": "hardhat run scripts/schoolCertificateNFT/test1_student_request_certificate.ts --network ethereum_sepolia_testnet_as_student"
   },
   "devDependencies": {
     "@nomiclabs/buidler": "^1.4.8",
