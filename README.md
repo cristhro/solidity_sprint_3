@@ -15,11 +15,12 @@ y SchoolEventTickets  (que implementa ERC-1155) para la gestión de ticket (entr
 - La escuela podra invalidar un certificado ntf (isRevoked)
 
 ### SchoolEventTickets
-- El estudiante  podra Solicitar certificado (dando permiso para realizar tranferencias de los fondos al director una vez se apruebe el certificado)
-- El director firmara el certificado, acto seguido se hace la transferencia de la cuenta del estudiante a la cuenta del director
+- Este contrato permite a la escuela emitir y transferir tickets (A los estudiantes de la escuela).
+- Acuñación de entradas (mint): Solo el propietario del contrato puede acuñar nuevas entradas, garantizando un control centralizado.
+- Establecimiento de URIs (setURI): Permite asociar un identificador de recurso uniforme (URI) a cada entrada, proporcionando un enlace a información adicional como una imagen o descripción del evento.
+- Distribución de entradas (distributeTickets): El propietario puede distribuir entradas a múltiples destinatarios de forma eficiente.
+- Transferencia de entradas (transferTicket): Los poseedores de entradas pueden transferirlas a otros usuarios de forma segura, permitiendo la compraventa o intercambio de entradas.
 
-### SchoolEventTickets
-- Los estudiantes podran adquirir tokens (ERC1155) para eventos escolares
 
 ## Configuración del entorno
 #### .env:
@@ -72,6 +73,22 @@ Resultado: dirección del contrato School token
 7. Configurar la variable de entorno en .env
 ```sh
   SCHOOL_CERTIFICATE_CONTRACT_ADDRESS=0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff
+```
+8. Hacer deploy de school-event-tickets:deploy 
+```sh
+   npm run school-event-tickets:deploy
+  -> 0x7Bd1D63789a1357398255a57795F0A1a01D56A90
+```
+9. Verificar el contrato School Event Tickets
+```sh
+   npm run school-event-tickets:verify 0x7Bd1D63789a1357398255a57795F0A1a01D56A90
+```
+- Resultado: 
+    - https://sepolia.etherscan.io/address/0x7Bd1D63789a1357398255a57795F0A1a01D56A90#code
+    
+10. Configurar la variable de entorno en .env
+```sh
+  SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS=0x7Bd1D63789a1357398255a57795F0A1a01D56A90
 ```
 
  
@@ -167,10 +184,60 @@ Resultado: dirección del contrato School token
    - Resultado: https://sepolia.etherscan.io/tx/0x3d1d9251fae5078b58689586bc387d324382aa1eefdf8e35e35e23e8d94cd57a
 
 
+## Descripción de los nuevos casos de uso del contrato School Event Tickets
+  ### Generar tickets : 
+  #### El director genera 25 tickets para una excursion (SCHOOL_EVENT_TICKET_EXCURSION)
+  - Requisitos: Tener configurado las variables de entorno SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS, DIRECTOR_ADDRESS, SCHOOL_EVENT_TICKET_EXCURSION en .env
+    
+  ```sh
+      npm run school-certificate:test4
+      > hardhat run scripts/schoolEventTickets/test1_school_generate_tickets.ts --network ethereum_sepolia_testnet_as_school
+    ]
+  ```
+   - Resultado: https://sepolia.etherscan.io/tx/0x9169c93b36b7daa75d001f7a7700aa3ab4b13f386b81abeaa7af3aa24b0b9d9c
+
+  ### Distribuir tickets: 
+    #### El director distribuira 3 tickets de los 25  generados (SCHOOL_EVENT_TICKET_EXCURSION) a los estudiantes
+    - Requisitos: Tener configurado las variables de entorno SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS, DIRECTOR_ADDRESS, SCHOOL_EVENT_TICKET_EXCURSION,  STUDENT1_ADDRESS, STUDENT2_ADDRESS, STUDENT3_ADDRESS en .env
+      
+    ```sh
+        npm run school-event-tickets:test2
+        > hardhat run scripts/schoolEventTickets/test2_school_distribute_tickets.ts --network ethereum_sepolia_testnet_as_school
+        Saldo de entradas de 0xB1b987b0aCc4139e1565256A89E1d3ea8c6Da1bf: 1
+        Saldo de entradas de 0x34BF29Fc721353E90C5915fc0eBB317f37Ee13E0: 1
+        Saldo de entradas de 0xEDee67926Ff5cB756D50C5A6bECAe8945279003c: 1
+      ]
+    ```
+    - Resultado: https://sepolia.etherscan.io/tx/0x1164bf43fde0388c10bfa2dceaa74dcc9b7ede444f5f837e21dbfe4de62b1c07
+  
+  ### Como estudiante consultar mis tickets: 
+    - Requisitos: Tener configurado las variables de entorno SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS, DIRECTOR_ADDRESS, SCHOOL_EVENT_TICKET_EXCURSION,  STUDENT1_ADDRESS en .env
+      
+    ```sh
+        npm run school-event-tickets:test3
+        > hardhat run scripts/schoolEventTickets/test2_school_distribute_tickets.ts --network ethereum_sepolia_testnet_as_school
+        Saldo de entradas de 0xB1b987b0aCc4139e1565256A89E1d3ea8c6Da1bf: 1
+        Saldo de entradas de 0x34BF29Fc721353E90C5915fc0eBB317f37Ee13E0: 1
+        Saldo de entradas de 0xEDee67926Ff5cB756D50C5A6bECAe8945279003c: 1
+      ]
+    ```
+    - Resultado: https://sepolia.etherscan.io/tx/0x1164bf43fde0388c10bfa2dceaa74dcc9b7ede444f5f837e21dbfe4de62b1c07
+  
+  ### Transferir ticket: 
+   #### En esta ocasión transferiremos tickets del estudiante 1 al 2 
+    - Requisitos: Tener configurado las variables de entorno SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS, SCHOOL_EVENT_TICKET_EXCURSION,  STUDENT1_ADDRESS STUDENT2_ADDRESS en .env
+      
+    ```sh
+        npm run school-event-tickets:test4
+        > hardhat run scripts/schoolEventTickets/test2_school_distribute_tickets.ts --network ethereum_sepolia_testnet_as_school
+        Saldo de entradas de 0xB1b987b0aCc4139e1565256A89E1d3ea8c6Da1bf: 1
+        Saldo de entradas de 0x34BF29Fc721353E90C5915fc0eBB317f37Ee13E0: 1
+        Saldo de entradas de 0xEDee67926Ff5cB756D50C5A6bECAe8945279003c: 1
+      ]
+    ```
+    - Resultado: https://sepolia.etherscan.io/tx/0x1164bf43fde0388c10bfa2dceaa74dcc9b7ede444f5f837e21dbfe4de62b1c07
+
+
 
 ### El estudiante adquiere tickets de eventos escolares: 
    
-
-
-
-
