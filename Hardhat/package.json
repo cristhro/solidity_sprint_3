@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Cristhian Rodriguez y Jesus Rosas",
   "scripts": {
+    "clean": "hardhat clean",
     "compile": "hardhat compile",
     "school-token:deploy": "hardhat run scripts/schoolToken/deploy.ts --network ethereum_sepolia_testnet_as_school  ",
     "school-token:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school  ",
@@ -16,15 +17,12 @@
     "school-certificate:test3": "hardhat run scripts/schoolCertificate/test3_student_view_certificate.ts --network ethereum_sepolia_testnet_as_student",
     "school-certificate:test4": "hardhat run scripts/schoolCertificate/test4_director_grant_certificate.ts --network ethereum_sepolia_testnet_as_director",
     "school-certificate:test5": "hardhat run scripts/schoolCertificate/test5_student_view_certificate.ts --network ethereum_sepolia_testnet_as_student",
-
     "school-event-tickets:deploy" : "hardhat run scripts/schoolEventTickets/deploy.ts --network ethereum_sepolia_testnet_as_school",
     "school-event-tickets:verify": "hardhat verify  --network ethereum_sepolia_testnet_as_school",
-    "school-tickets-permission-manager:deploy" : "hardhat run scripts/schoolEventTickets/deployTicketsPermission.ts --network ethereum_sepolia_testnet_as_school",
-    "school-tickets-permission-manager:verify" : "hardhat verify  --network ethereum_sepolia_testnet_as_school",
-    "school-add-tickets-student:test": "hardhat run scripts/schoolEventTickets/tests/AddTicketsToStudent.ts --network ethereum_sepolia_testnet_as_school",
-    "school-tickets-permission-manager:test": "hardhat run scripts/schoolEventTickets/tests/TicketsPermissionManager.js --network ethereum_sepolia_testnet_as_student"
-
-
+    "school-event-tickets:test1": "hardhat run scripts/schoolEventTickets/test1_school_generate_tickets.ts --network ethereum_sepolia_testnet_as_school",
+    "school-event-tickets:test2": "hardhat run scripts/schoolEventTickets/test2_school_distribute_tickets.ts --network ethereum_sepolia_testnet_as_school",
+    "school-event-tickets:test3": "hardhat run scripts/schoolEventTickets/test3_student_view_ticket.ts --network ethereum_sepolia_testnet_as_school",
+    "school-event-tickets:test4": "hardhat run scripts/schoolEventTickets/test4_student_transfer_ticket.ts --network ethereum_sepolia_testnet_as_school"
   },
   "devDependencies": {
     "@nomiclabs/buidler": "^1.4.8",
