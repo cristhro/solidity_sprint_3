@@ -16,7 +16,7 @@ y SchoolEventTickets  (que implementa ERC-1155) para la gestión de ticket (entr
 
 ### SchoolEventTickets
 - Este contrato permite a la escuela emitir y transferir tickets (A los estudiantes de la escuela).
-- Acuñación de entradas (mint): Solo el propietario del contrato puede acuñar nuevas entradas, garantizando un control centralizado.
+- Generación de entradas (mint): Solo el propietario del contrato puede generar nuevas entradas, garantizando un control centralizado.
 - Establecimiento de URIs (setURI): Permite asociar un identificador de recurso uniforme (URI) a cada entrada, proporcionando un enlace a información adicional como una imagen o descripción del evento.
 - Distribución de entradas (distributeTickets): El propietario puede distribuir entradas a múltiples destinatarios de forma eficiente.
 - Transferencia de entradas (transferTicket): Los poseedores de entradas pueden transferirlas a otros usuarios de forma segura, permitiendo la compraventa o intercambio de entradas.
@@ -190,7 +190,7 @@ Resultado: dirección del contrato School token
   - Requisitos: Tener configurado las variables de entorno SCHOOL_EVENT_TICKETS_CONTRACT_ADDRESS, DIRECTOR_ADDRESS, SCHOOL_EVENT_TICKET_EXCURSION en .env
     
   ```sh
-      npm run school-certificate:test4
+      npm run school-event-tickets:test1
       > hardhat run scripts/schoolEventTickets/test1_school_generate_tickets.ts --network ethereum_sepolia_testnet_as_school
     ]
   ```
