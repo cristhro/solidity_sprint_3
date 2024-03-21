@@ -16,7 +16,7 @@ y SchoolEventTickets  (que implementa ERC-1155) para la gestión de ticket (entr
 
 ### SchoolEventTickets
 - Este contrato permite a la escuela emitir y transferir tickets (A los estudiantes de la escuela).
-- Acuñación de entradas (mint): Solo el propietario del contrato puede acuñar nuevas entradas, garantizando un control centralizado.
+- Generación de entradas (mint): Solo el propietario del contrato puede generar nuevas entradas, garantizando un control centralizado.
 - Establecimiento de URIs (setURI): Permite asociar un identificador de recurso uniforme (URI) a cada entrada, proporcionando un enlace a información adicional como una imagen o descripción del evento.
 - Distribución de entradas (distributeTickets): El propietario puede distribuir entradas a múltiples destinatarios de forma eficiente.
 - Transferencia de entradas (transferTicket): Los poseedores de entradas pueden transferirlas a otros usuarios de forma segura, permitiendo la compraventa o intercambio de entradas.
