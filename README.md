@@ -7,7 +7,7 @@ Sprint 3 - Programación de tokens no fungibles (estándares ERC-720 y ERC-1155)
 
 ## Introducción
 En este sprint, usaremos dos nuevos contratos, SchoolCertificateNFT  (que implementa ERC-721) para la gestion de tokens unicos, 
-y SchoolEventTickets  (que implementa ERC-1155) para la gestión de ticket (entradas) en los eventos academicos.
+y SchoolEventTickets  (que implementa ERC-1155) para la gestión de tickets en los eventos academicos (excursiones).
 
 ### SchoolCertificateNFT
 - La escuela podra minar los certificado ntf (mintCertificate)
