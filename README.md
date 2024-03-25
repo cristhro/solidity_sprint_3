@@ -61,14 +61,14 @@ Resultado: dirección del contrato School token
 4. Hacer deploy de school-certificate-nft:deploy 
 ```sh
    npm run school-certificate-nft:deploy
-  -> 0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff
+  -> 0x2F8678C270347372eE8744344cb66FE4A5e1E119
 ```
 5. Verificar el contrato School Certificate NFT
 ```sh
-   npm run school-certificate-nft:verify TODO: añadri 0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff
+   npm run school-certificate-nft:verify 0x2F8678C270347372eE8744344cb66FE4A5e1E119
 ```
 - Resultado: 
-    - https://sepolia.etherscan.io/address/0xf9d0cac27C306Dd9207A3d15eA68b2F838f0C6ff#code
+    - https://sepolia.etherscan.io/address/0x2F8678C270347372eE8744344cb66FE4A5e1E119#code
     
 7. Configurar la variable de entorno en .env
 ```sh
